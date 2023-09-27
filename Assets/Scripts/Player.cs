@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player Stats")]
+    [Tooltip("Controla la velocidad de movimiento de nuestro personaje")]
     [SerializeField]private float _playerSpeed = 5;
+    [Tooltip("Controla la fuerza de salto del personaje")]
     
     [SerializeField]private float _jumpForce = 5;
 
@@ -13,6 +16,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rBody2D;
     private GroundSensor _sensor;
+    private Animator _animator;
 
 
     // Start is called before the first frame update
@@ -21,6 +25,7 @@ public class Player : MonoBehaviour
 
       _rBody2D = GetComponent<Rigidbody2D>();
       _sensor = GetComponentInChildren<GroundSensor>();
+      _animator = GetComponentInChildren<Animator>();
         
     }
 
@@ -47,6 +52,16 @@ public class Player : MonoBehaviour
     void PlayerMovement()
        {
        _playerInput = Input.GetAxis("Horizontal");
+
+       if(_playerInput != 0)
+        {
+          _animator.SetBool("IsRunning", true);
+        }
+       
+       if(_playerInput == 0)
+        {
+          _animator.SetBool("IsRunning", false);
+        }
         /*_playerSpeed2 = Input.GetAxis("Vertical");
 
        transform.Translate(new Vector2(_playerInput, _playerSpeed2) * _playerSpeed * Time.deltaTime);*/
@@ -55,6 +70,8 @@ public class Player : MonoBehaviour
         void Jump()
         {
          _rBody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+
+         _animator.SetBool("IsJumpin", true);
         }
         
     
