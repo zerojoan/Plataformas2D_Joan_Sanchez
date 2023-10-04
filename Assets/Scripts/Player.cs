@@ -15,8 +15,10 @@ public class Player : MonoBehaviour
     //private float _playerSpeed2 = 5;
 
     private Rigidbody2D _rBody2D;
-    private GroundSensor _sensor;
+    //private GroundSensor _sensor;
     private Animator _animator;
+
+    
 
 
     // Start is called before the first frame update
@@ -24,7 +26,7 @@ public class Player : MonoBehaviour
     {
 
       _rBody2D = GetComponent<Rigidbody2D>();
-      _sensor = GetComponentInChildren<GroundSensor>();
+      //_sensor = GetComponentInChildren<GroundSensor>();
       _animator = GetComponentInChildren<Animator>();
         
     }
@@ -35,7 +37,7 @@ public class Player : MonoBehaviour
         
        PlayerMovement();
 
-       if(Input.GetButtonDown("Jump") && _sensor._isGrounded)
+       if(Input.GetButtonDown("Jump") && GroundSensor._isGrounded)
        {
          Jump();
        }
@@ -62,6 +64,27 @@ public class Player : MonoBehaviour
         {
           _animator.SetBool("IsRunning", false);
         }
+
+        if (_playerInput < 0) 
+        {
+          transform.rotation = Quaternion.Euler(0, 180, 0);
+          _animator.SetBool("isRunning", true);
+        }
+
+        if (_playerInput > 0) 
+        {
+          transform.rotation = Quaternion.Euler(0, 0, 0);
+          _animator.SetBool("isRunning", true);
+        }
+        
+        if(_playerInput == 0)
+        {
+          
+          _animator.SetBool("isRunning", true);
+
+        }
+
+        
         /*_playerSpeed2 = Input.GetAxis("Vertical");
 
        transform.Translate(new Vector2(_playerInput, _playerSpeed2) * _playerSpeed * Time.deltaTime);*/
