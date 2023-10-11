@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Player : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rBody2D;
     //private GroundSensor _sensor;
-    private Animator _animator;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private PlayableDirector _director;
 
     
 
@@ -27,7 +29,7 @@ public class Player : MonoBehaviour
 
       _rBody2D = GetComponent<Rigidbody2D>();
       //_sensor = GetComponentInChildren<GroundSensor>();
-      _animator = GetComponentInChildren<Animator>();
+      
         
     }
 
@@ -40,6 +42,11 @@ public class Player : MonoBehaviour
        if(Input.GetButtonDown("Jump") && GroundSensor._isGrounded)
        {
          Jump();
+       }
+
+       if(Input.GetButtonDown("Fire2"))
+       {
+        _director.Play();
        }
     
     }
@@ -68,19 +75,19 @@ public class Player : MonoBehaviour
         if (_playerInput < 0) 
         {
           transform.rotation = Quaternion.Euler(0, 180, 0);
-          _animator.SetBool("isRunning", true);
+          _animator.SetBool("IsRunning", true);
         }
 
         if (_playerInput > 0) 
         {
           transform.rotation = Quaternion.Euler(0, 0, 0);
-          _animator.SetBool("isRunning", true);
+          _animator.SetBool("IsRunning", true);
         }
         
         if(_playerInput == 0)
         {
           
-          _animator.SetBool("isRunning", true);
+          _animator.SetBool("IsRunning", true);
 
         }
 
