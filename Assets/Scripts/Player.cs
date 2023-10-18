@@ -103,6 +103,10 @@ public class Player : MonoBehaviour
 
          _animator.SetBool("IsJumpin", true);
         }
-        
+
+        public void SignalTest()
+        {
+           Debug.Log("Señal recibida");
+        }
     
 }
